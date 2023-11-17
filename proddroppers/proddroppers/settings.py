@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "users_music.apps.UsersMusicConfig",
     "users_auth.apps.UsersAuthConfig",
     "core.apps.CoreConfig",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
