@@ -13,6 +13,7 @@ class AlbomAdmin(admin.ModelAdmin):
     list_display = [
         Albom.name.field.name,
         Albom.artist.field.name,
+        Albom.display_image,
     ]
 
 
@@ -27,5 +28,4 @@ class MusicAdmin(admin.ModelAdmin):
         Music.name.field.name,
         Music.category.field.name,
         Music.albom.field.name,
-        Music.display_image,
     ]

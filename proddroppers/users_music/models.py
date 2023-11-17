@@ -24,12 +24,29 @@ class Albom(AbstractNameModel):
         related_name="music",
     )
 
+    music_image = models.ImageField(
+        upload_to="images/music/",
+        verbose_name="обложка музыкального файла",
+        default="default/default_music_image.png",
+    )
+
+    def get_image_300x300(self):
+        return get_thumbnail(self.music_image, "300x300", quality=51)
+
+    def display_image(self):
+        return mark_safe(
+            f"<img src='{self.get_image_300x300().url}' width=50>",
+        )
+
     class Meta:
         verbose_name = "альбом"
         verbose_name_plural = "альбомы"
 
     def __str__(self):
         return self.name
+
+    display_image.short_description = "превью"
+    display_image.allow_tags = True
 
 
 class Category(AbstractNameModel):
@@ -61,20 +78,6 @@ class Music(AbstractNameModel):
         verbose_name="музыкальный файл",
     )
 
-    music_image = models.ImageField(
-        upload_to="images/music/",
-        verbose_name="обложка музыкального файла",
-        default="default/default_music_image.png",
-    )
-
-    def get_image_300x300(self):
-        return get_thumbnail(self.music_image, "300x300", quality=51)
-
-    def display_image(self):
-        return mark_safe(
-            f"<img src='{self.get_image_300x300().url}' width=50>",
-        )
-
     class Meta:
         verbose_name = "музыка"
         verbose_name_plural = "музыка"
@@ -82,12 +85,13 @@ class Music(AbstractNameModel):
     def __str__(self):
         return self.name
 
-    display_image.short_description = "превью"
-    display_image.allow_tags = True
-
 
 @receiver(pre_delete, sender=Music)
 def sorl_delete(sender, instance, **kwargs):
     delete(instance.music_file)
+
+
+@receiver(pre_delete, sender=Albom)
+def sorl_delete(sender, instance, **kwargs):
     if instance.music_image != "default/default_music_image.png":
         delete(instance.music_image)
