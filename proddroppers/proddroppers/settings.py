@@ -1,17 +1,24 @@
+import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "not_so_secret")
 
-SECRET_KEY = (
-    "django-insecure-2!pkeg((0b9aok3+z*!f$_og=1i#hwf^uh5+n9!3rzt1(q6!u8"
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split()
+
+DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() in (
+    "true",
+    "yes",
+    "1",
+    "y",
+    "t",
 )
-
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
@@ -21,6 +28,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "users.apps.UsersConfig",
+    "rooms.apps.RoomsConfig",
+    "users_music.apps.UsersMusicConfig",
+    "users_auth.apps.UsersAuthConfig",
 ]
 
 MIDDLEWARE = [
@@ -33,12 +44,18 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+if DEBUG:
+    DEFAULT_USER_IS_ACTIVE = True
+    INTERNAL_IPS = ["127.0.0.1"]
+    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    INSTALLED_APPS.append("debug_toolbar")
+
 ROOT_URLCONF = "proddroppers.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -87,7 +104,12 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
