@@ -4,3 +4,4 @@ import-order-style = google
 inline-quotes = double
 max-complexity = 10
 max-line-length = 79
+application-import-names = proddroppers, users, users_auth, users_music, core,
