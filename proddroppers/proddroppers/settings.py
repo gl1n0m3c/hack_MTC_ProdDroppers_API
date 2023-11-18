@@ -29,12 +29,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "sorl.thumbnail",
+    "rest_framework",
     "users.apps.UsersConfig",
     "rooms.apps.RoomsConfig",
     "users_music.apps.UsersMusicConfig",
     "users_auth.apps.UsersAuthConfig",
     "core.apps.CoreConfig",
-    "widget_tweaks",
 ]
 
 MIDDLEWARE = [

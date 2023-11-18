@@ -1,15 +1,26 @@
 from django.urls import path
 
-from users_auth.views import (
-    ChangePasswordPage, ChangeUserDataPage,
-    LoginPage, logout_user, SignUpPage)
+from users_auth.views import sign_up, logout, login, Test
 
 urlpatterns = [
-    path("logout/", logout_user, name="logout"),
-    path("signup/", SignUpPage.as_view(), name="signup"),
-    path("login/", LoginPage.as_view(), name="login"),
-    path("edituserdata/", ChangeUserDataPage.as_view(), name="editData"),
     path(
-        "changepassword/", ChangePasswordPage.as_view(),
-        name="changePassword"),
+        "",
+        Test.as_view(),
+        name="test",
+    ),
+    path(
+        "logout/",
+        logout,
+        name="logout",
+    ),
+    path(
+        "signup/",
+        sign_up,
+        name="signup",
+    ),
+    path(
+        "login/",
+        login,
+        name="login",
+    ),
 ]
