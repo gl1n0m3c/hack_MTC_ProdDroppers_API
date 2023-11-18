@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
@@ -76,6 +77,9 @@ class Music(AbstractNameModel):
     music_file = models.FileField(
         upload_to="music/",
         verbose_name="музыкальный файл",
+        validators=[
+            FileExtensionValidator(allowed_extensions=["mp3", "wav", "ogg"]),
+        ],
     )
 
     class Meta:
@@ -87,11 +91,10 @@ class Music(AbstractNameModel):
 
 
 @receiver(pre_delete, sender=Music)
-def sorl_delete(sender, instance, **kwargs):
-    delete(instance.music_file)
-
-
 @receiver(pre_delete, sender=Albom)
 def sorl_delete(sender, instance, **kwargs):
-    if instance.music_image != "default/default_music_image.png":
-        delete(instance.music_image)
+    if isinstance(instance, Music):
+        delete(instance.music_file)
+    else:
+        if instance.music_image != "default/default_music_image.png":
+            delete(instance.music_image)
