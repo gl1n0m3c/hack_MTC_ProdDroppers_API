@@ -23,14 +23,6 @@ class UserFriendsAPI(APIView):
 
 class UserFriendsWaitingAPI(APIView):
     def get(self, request, pk, *args, **kwargs):
-        friends = (
-            FriendsNotAssepted.objects.prefetch_related(
-                FriendsNotAssepted.user2.field.name
-            )
-            .filter(user1=pk)
-            .only(
-                f"{FriendsNotAssepted.user2.field.name}__{User.username.field.name}"
-            )
-        )
+        friends = FriendsNotAssepted.objects.get_friends(pk)
 
         return Response(FriendsWaitingSerializer(friends).data)

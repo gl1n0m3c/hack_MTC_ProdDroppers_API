@@ -28,5 +28,4 @@ class FriendsWaitingSerializer(serializers.ModelSerializer):
         fields = ["friends"]
 
     def get_friends(self, obj):
-        user2_usernames = [friend.user2.username for friend in obj]
-        return user2_usernames
+        return [friend.user2.username for friend in obj]

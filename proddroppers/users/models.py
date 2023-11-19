@@ -4,7 +4,37 @@ from django.db import models
 from users_music.models import Music
 
 
+class FriendsAsseptedManaget(models.Manager):
+    def get_friends(self, pk):
+        return (
+            self.get_queryset()
+            .select_related(FriendsAssepted.user2.field.name)
+            .filter(user1=pk)
+            .only(
+                f"{FriendsAssepted.user2.field.name}"
+                + "__"
+                + f"{User.username.field.name}"
+            )
+        )
+
+
+class FriendsNotAsseptedManaget(models.Manager):
+    def get_friends(self, pk):
+        return (
+            self.get_queryset()
+            .select_related(FriendsNotAssepted.user2.field.name)
+            .filter(user1=pk)
+            .only(
+                f"{FriendsNotAssepted.user2.field.name}"
+                + "__"
+                + f"{User.username.field.name}"
+            )
+        )
+
+
 class FriendsAssepted(models.Model):
+    object = FriendsAsseptedManaget()
+
     user1 = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -27,6 +57,8 @@ class FriendsAssepted(models.Model):
 
 
 class FriendsNotAssepted(models.Model):
+    object = FriendsNotAsseptedManaget()
+
     user1 = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
