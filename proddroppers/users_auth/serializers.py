@@ -1,9 +1,6 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,17 +12,16 @@ class UserSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True,
-        validators=[
-            UniqueValidator(
-                queryset=User.objects.all(),
-                message="Такая почта уже зарегистрирована!",
-            )
-        ],
     )
     password = serializers.CharField(
-        write_only=True, required=True, validators=[validate_password]
+        write_only=True,
+        required=True,
+        validators=[validate_password],
     )
-    password2 = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(
+        write_only=True,
+        required=True,
+    )
 
     class Meta:
         model = User
@@ -36,15 +32,25 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
 
     def validate(self, attrs):
-        print(attrs)
+        users = User.objects.all()
+        for u in users:
+            if attrs["email"] == u.email:
+                raise serializers.ValidationError(
+                    {
+                        "success": "False",
+                        "description": "Такая почта уже зарегистрирована!",
+                    },
+                )
         if attrs["password"] != attrs["password2"]:
             raise serializers.ValidationError(
-                {"description": "Password fields didn't match."}
+                {
+                    "success": "False",
+                    "description": "Поля паролей не совпадают.",
+                },
             )
         return attrs
 
     def create(self, validated_data):
-        print(validated_data)
         user = User.objects.create(
             username=validated_data["email"],
             email=validated_data["email"],
