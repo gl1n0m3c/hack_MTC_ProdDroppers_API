@@ -13,7 +13,7 @@ class FriendsAsseptedManaget(models.Manager):
             .only(
                 f"{FriendsAssepted.user2.field.name}"
                 + "__"
-                + f"{User.username.field.name}"
+                + f"{User.username.field.name}",
             )
         )
 
@@ -27,7 +27,7 @@ class FriendsNotAsseptedManaget(models.Manager):
             .only(
                 f"{FriendsNotAssepted.user2.field.name}"
                 + "__"
-                + f"{User.username.field.name}"
+                + f"{User.username.field.name}",
             )
         )
 

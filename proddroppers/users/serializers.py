@@ -1,5 +1,6 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import serializers
+
 from users.models import FriendsAssepted, FriendsNotAssepted
 
 
@@ -20,6 +21,17 @@ class FriendsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FriendsNotAssepted
+        fields = ["friends"]
+
+    def get_friends(self, obj):
+        return [friend.user2.username for friend in obj]
+
+
+class FriendsWaitingSerializer(serializers.ModelSerializer):
+    friends = serializers.SerializerMethodField()
+
+    class Meta:
+        model = FriendsAssepted
         fields = ["friends"]
 
     def get_friends(self, obj):
