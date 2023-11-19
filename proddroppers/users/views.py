@@ -17,7 +17,7 @@ class UserDetailAPI(APIView):
 
 class UserFriendsAPI(APIView):
     def get(self, request, pk, *args, **kwargs):
-        friends = FriendsAssepted.objects.filter(user1=pk).values()
+        friends = FriendsAssepted.objects.get_friends(pk)
         return Response({"friends": list(friends)})
 
 
