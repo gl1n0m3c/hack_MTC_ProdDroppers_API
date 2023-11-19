@@ -33,7 +33,7 @@ class FriendsNotAsseptedManaget(models.Manager):
 
 
 class FriendsAssepted(models.Model):
-    object = FriendsAsseptedManaget()
+    objects = FriendsAsseptedManaget()
 
     user1 = models.ForeignKey(
         User,
@@ -57,7 +57,7 @@ class FriendsAssepted(models.Model):
 
 
 class FriendsNotAssepted(models.Model):
-    object = FriendsNotAsseptedManaget()
+    objects = FriendsNotAsseptedManaget()
 
     user1 = models.ForeignKey(
         User,

@@ -1,11 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from users.serializers import (
-    UserSerializer,
-    FriendsSerializer,
-    FriendsWaitingSerializer,
-)
+from users.serializers import UserSerializer, FriendsSerializer
 from users.models import FriendsAssepted, FriendsNotAssepted
 
 
@@ -18,11 +14,12 @@ class UserDetailAPI(APIView):
 class UserFriendsAPI(APIView):
     def get(self, request, pk, *args, **kwargs):
         friends = FriendsAssepted.objects.get_friends(pk)
-        return Response({"friends": list(friends)})
+
+        return Response(FriendsSerializer(friends).data)
 
 
 class UserFriendsWaitingAPI(APIView):
     def get(self, request, pk, *args, **kwargs):
         friends = FriendsNotAssepted.objects.get_friends(pk)
 
-        return Response(FriendsWaitingSerializer(friends).data)
+        return Response(FriendsSerializer(friends).data)

@@ -16,11 +16,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class FriendsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FriendsAssepted
-
-
-class FriendsWaitingSerializer(serializers.ModelSerializer):
     friends = serializers.SerializerMethodField()
 
     class Meta:
