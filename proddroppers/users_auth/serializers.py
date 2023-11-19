@@ -12,17 +12,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         required=True,
         validators=[validate_password],
     )
-    password2 = serializers.CharField(
-        write_only=True,
-        required=True,
-    )
 
     class Meta:
         model = User
         fields = (
             "email",
             "password",
-            "password2",
         )
 
     def validate(self, attrs):
@@ -35,13 +30,6 @@ class RegisterSerializer(serializers.ModelSerializer):
                         "description": "Такая почта уже зарегистрирована!",
                     },
                 )
-        if attrs["password"] != attrs["password2"]:
-            raise serializers.ValidationError(
-                {
-                    "success": "False",
-                    "description": "Поля паролей не совпадают.",
-                },
-            )
         return attrs
 
     def create(self, validated_data):
