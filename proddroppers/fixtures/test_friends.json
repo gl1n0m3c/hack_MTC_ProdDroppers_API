@@ -1,0 +1,66 @@
+[
+    {
+        "model": "users.friendsassepted",
+        "pk": 1,
+        "fields": {
+            "user1": 2,
+            "user2": 5
+        }
+    },
+    {
+        "model": "users.friendsassepted",
+        "pk": 3,
+        "fields": {
+            "user1": 5,
+            "user2": 2
+        }
+    },
+    {
+        "model": "users.friendsassepted",
+        "pk": 4,
+        "fields": {
+            "user1": 3,
+            "user2": 4
+        }
+    },
+    {
+        "model": "users.friendsassepted",
+        "pk": 5,
+        "fields": {
+            "user1": 4,
+            "user2": 3
+        }
+    },
+    {
+        "model": "users.friendsnotassepted",
+        "pk": 1,
+        "fields": {
+            "user1": 2,
+            "user2": 3
+        }
+    },
+    {
+        "model": "users.friendsnotassepted",
+        "pk": 2,
+        "fields": {
+            "user1": 2,
+            "user2": 4
+        }
+    },
+    {
+        "model": "users.friendsnotassepted",
+        "pk": 4,
+        "fields": {
+            "user1": 3,
+            "user2": 5
+        }
+    },
+    {
+        "model": "users.friendsnotassepted",
+        "pk": 5,
+        "fields": {
+            "user1": 4,
+            "user2": 5
+        }
+    }
+]
