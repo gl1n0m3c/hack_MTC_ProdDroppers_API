@@ -3,7 +3,6 @@ from django.urls import path
 from users_auth.views import (
     ChangePasswordView,
     LoginUserAPIView,
-    ChangePasswordView,
     RegisterUserAPIView,
 )
 

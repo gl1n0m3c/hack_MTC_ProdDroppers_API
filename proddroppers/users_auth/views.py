@@ -1,63 +1,90 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.contrib.auth.models import User
-from rest_framework import status
-from rest_framework import generics
-from rest_framework.response import Response
-from django.contrib.auth.models import User
-from . import serializers
-from rest_framework.permissions import IsAuthenticated
-
-from users_auth.serializers import (
-    LoginSerializer,
-    RegisterSerializer,
-    ChangePasswordSerializer,
-)
 
 
 class RegisterUserAPIView(APIView):
     def post(self, request, *args, **kwargs):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        try:
+            User.objects.get(username=request.data["email"])
+        except User.DoesNotExist:
+            user = User.objects.create(
+                username=request.data["email"],
+                email=request.data["email"],
+            )
+            user.set_password(request.data["password"])
+            user.save()
             return Response(
                 {
                     "success": ["True"],
-                    "description": ["Объект успешно создан"],
+                    "description": ["Регистрация прошла успешно"],
                 },
                 status=status.HTTP_201_CREATED,
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {
+                "success": ["False"],
+                "description": ["Такая почта уже зарегистрирована"],
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 class LoginUserAPIView(APIView):
     def post(self, request, *args, **kwargs):
-        serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            user = serializer.create(validated_data=request.data)
+        user = authenticate(
+            username=request.data["username"],
+            password=request.data["password"],
+        )
+        if user is None:
             return Response(
                 {
-                    "success": ["True"],
-                    "id": [user.id],
-                    "description": ["Авторизация прошла успешно"],
+                    "success": ["False"],
+                    "description": ["Неверный логин или пароль"],
                 },
-                status=status.HTTP_200_OK,
+                status=status.HTTP_400_BAD_REQUEST,
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {
+                "success": ["True"],
+                "description": ["Авторизация прошла успешно"],
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
 class ChangePasswordView(APIView):
     def post(self, request, *args, **kwargs):
-        serializer = ChangePasswordSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        try:
+            user = User.objects.get(id=request.data["id"])
+        except User.DoesNotExist:
             return Response(
                 {
-                    "success": ["True"],
-                    "description": ["Пароль успешно изменен"],
+                    "success": ["False"],
+                    "description": ["Такого пользователя нету"],
                 },
-                status=status.HTTP_200_OK,
+                status=status.HTTP_400_BAD_REQUEST,
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        auth_user = authenticate(
+            username=user.username,
+            password=request.data["old_password"],
+        )
+        if auth_user is None:
+            return Response(
+                {
+                    "success": ["False"],
+                    "description": ["Неверный пароль"],
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        user.set_password(request.data["new_password"])
+        user.save()
+        return Response(
+            {
+                "success": ["True"],
+                "description": ["Пароль успешно изменен"],
+            },
+            status=status.HTTP_200_OK,
+        )
