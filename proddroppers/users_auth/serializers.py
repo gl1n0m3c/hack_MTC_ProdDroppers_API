@@ -1,5 +1,7 @@
+from os import write
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from pkg_resources import require
 from rest_framework import serializers
 
 
@@ -76,3 +78,53 @@ class LoginSerializer(serializers.ModelSerializer):
             username=validated_data["username"],
             password=validated_data["password"],
         )
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    id = serializers.IntegerField(
+        required=True,
+    )
+    old_password = serializers.CharField(
+        required=True,
+        write_only=True,
+    )
+    new_password = serializers.CharField(
+        required=True,
+        write_only=True,
+    )
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "old_password",
+            "new_password",
+        )
+
+    def validate(self, attrs):
+        try:
+            user = User.objects.get(id=attrs["id"])
+        except:
+            raise serializers.ValidationError(
+                {
+                    "success": "False",
+                    "description": "Такого пользователя нету",
+                },
+            )
+        auth_user = authenticate(
+            username=user.username, password=attrs["old_password"]
+        )
+        if auth_user is None:
+            raise serializers.ValidationError(
+                {
+                    "success": "False",
+                    "description": "Неверный пароль",
+                },
+            )
+        return attrs
+
+    def create(self, validated_data):
+        user = User.objects.get(id=validated_data["id"])
+        user.set_password(validated_data["new_password"])
+        user.save()
+        return user
