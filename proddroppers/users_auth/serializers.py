@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from rest_framework import serializers, status
-from rest_framework.response import Response
+from rest_framework import serializers
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -60,7 +59,8 @@ class LoginSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         user = authenticate(
-            username=attrs["username"], password=attrs["password"]
+            username=attrs["username"],
+            password=attrs["password"],
         )
         if user is None:
             raise serializers.ValidationError(
@@ -72,8 +72,7 @@ class LoginSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        user = authenticate(
+        return authenticate(
             username=validated_data["username"],
             password=validated_data["password"],
         )
-        return user
