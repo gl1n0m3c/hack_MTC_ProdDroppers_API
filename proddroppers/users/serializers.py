@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from users.models import FriendsAssepted, FriendsNotAssepted
@@ -24,7 +25,18 @@ class FriendsSerializer(serializers.ModelSerializer):
         fields = ["friends"]
 
     def get_friends(self, obj):
-        return [friend.user2.username for friend in obj]
+        username = self.context["username"]
+        result = list()
+        for friend in obj:
+            if friend.user1.username == username:
+                result.append(
+                    {"id": friend.user2.id, "name": friend.user2.username}
+                )
+            else:
+                result.append(
+                    {"id": friend.user1.id, "name": friend.user1.username}
+                )
+        return result
 
 
 class FriendsWaitingSerializer(serializers.ModelSerializer):
@@ -35,4 +47,9 @@ class FriendsWaitingSerializer(serializers.ModelSerializer):
         fields = ["friends"]
 
     def get_friends(self, obj):
-        return [friend.user2.username for friend in obj]
+        result = list()
+        for friend in obj:
+            result.append(
+                {"id": friend.user1.id, "name": friend.user1.username}
+            )
+        return result

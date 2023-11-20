@@ -1,6 +1,21 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
-from users.models import FriendsAssepted, FriendsNotAssepted, UserMusic
+from users.models import (
+    FriendsAssepted,
+    FriendsNotAssepted,
+    UserNewFields,
+)
+
+
+class NewFieldsInline(admin.TabularInline):
+    model = UserNewFields
+    can_delete = False
+
+
+class NewUserAdmin(UserAdmin):
+    inlines = [NewFieldsInline]
 
 
 @admin.register(FriendsAssepted)
@@ -19,9 +34,14 @@ class FriendsNotAsseptedAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(UserMusic)
-class UserMusicAdmin(admin.ModelAdmin):
+@admin.register(UserNewFields)
+class UserImageAdmin(admin.ModelAdmin):
     list_display = [
-        UserMusic.user.field.name,
-        UserMusic.music.field.name,
+        UserNewFields.user.field.name,
+        UserNewFields.image.field.name,
+        UserNewFields.display_image,
     ]
+
+
+admin.site.unregister(User)
+admin.site.register(User, NewUserAdmin)
