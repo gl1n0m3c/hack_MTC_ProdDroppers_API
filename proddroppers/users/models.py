@@ -1,16 +1,28 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Q
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
+from sorl.thumbnail import delete
+
+from core.models import ImageOperations
 from users_music.models import Music
 
 
-class FriendsAsseptedManaget(models.Manager):
+class FriendsAsseptedManager(models.Manager):
     def get_friends(self, pk):
         return (
             self.get_queryset()
-            .select_related(FriendsAssepted.user2.field.name)
-            .filter(user1=pk)
+            .select_related(
+                FriendsAssepted.user1.field.name,
+                FriendsAssepted.user2.field.name,
+            )
+            .filter(Q(user1=pk) | Q(user2=pk))
             .only(
+                f"{FriendsAssepted.user1.field.name}"
+                + "__"
+                + f"{User.username.field.name}",
                 f"{FriendsAssepted.user2.field.name}"
                 + "__"
                 + f"{User.username.field.name}",
@@ -18,14 +30,14 @@ class FriendsAsseptedManaget(models.Manager):
         )
 
 
-class FriendsNotAsseptedManaget(models.Manager):
+class FriendsNotAsseptedManager(models.Manager):
     def get_friends(self, pk):
         return (
             self.get_queryset()
-            .select_related(FriendsNotAssepted.user2.field.name)
-            .filter(user1=pk)
+            .select_related(FriendsNotAssepted.user1.field.name)
+            .filter(user2=pk)
             .only(
-                f"{FriendsNotAssepted.user2.field.name}"
+                f"{FriendsNotAssepted.user1.field.name}"
                 + "__"
                 + f"{User.username.field.name}",
             )
@@ -33,7 +45,7 @@ class FriendsNotAsseptedManaget(models.Manager):
 
 
 class FriendsAssepted(models.Model):
-    objects = FriendsAsseptedManaget()
+    objects = FriendsAsseptedManager()
 
     user1 = models.ForeignKey(
         User,
@@ -57,7 +69,7 @@ class FriendsAssepted(models.Model):
 
 
 class FriendsNotAssepted(models.Model):
-    objects = FriendsNotAsseptedManaget()
+    objects = FriendsNotAsseptedManager()
 
     user1 = models.ForeignKey(
         User,
@@ -81,24 +93,38 @@ class FriendsNotAssepted(models.Model):
         return str(self.user1)
 
 
-class UserMusic(models.Model):
-    user = models.ForeignKey(
+class UserNewFields(models.Model, ImageOperations):
+    user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        related_name="user_music",
-        verbose_name="Пользователь",
+        verbose_name="пользователь",
+        related_name="added_fields",
     )
 
-    music = models.ForeignKey(
+    image = models.ImageField(
+        upload_to="images/users/",
+        verbose_name="аватарка",
+        default="default/default_user_image.png/",
+        null=True,
+        blank=True,
+    )
+
+    music = models.ManyToManyField(
         Music,
-        on_delete=models.CASCADE,
-        related_name="user_music",
-        verbose_name="Музыка",
+        related_name="added_fields",
+        verbose_name="музыка",
+        blank=True,
     )
 
     class Meta:
-        verbose_name = "связь пользователя и музыки"
-        verbose_name_plural = "связи пользователей и музыки"
+        verbose_name = "дополнительное поле"
+        verbose_name_plural = "дополнительные поля"
 
     def __str__(self):
         return str(self.user)
+
+
+@receiver(pre_delete, sender=UserNewFields)
+def sorl_delete(sender, instance, **kwargs):
+    if instance.image != "default/default_user_image.png":
+        delete(instance.image)
