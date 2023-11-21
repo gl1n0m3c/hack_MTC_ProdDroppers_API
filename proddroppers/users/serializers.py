@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from users.models import FriendsAssepted, FriendsNotAssepted
@@ -17,26 +16,14 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
-class FriendsSerializer(serializers.ModelSerializer):
-    friends = serializers.SerializerMethodField()
+class FriendsSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField(source="user2.id")
+    username = serializers.CharField(source="user2.username")
+    image = serializers.ImageField(source="user2.usernewfields.image")
 
     class Meta:
-        model = FriendsNotAssepted
-        fields = ["friends"]
-
-    def get_friends(self, obj):
-        username = self.context["username"]
-        result = list()
-        for friend in obj:
-            if friend.user1.username == username:
-                result.append(
-                    {"id": friend.user2.id, "name": friend.user2.username}
-                )
-            else:
-                result.append(
-                    {"id": friend.user1.id, "name": friend.user1.username}
-                )
-        return result
+        model = FriendsAssepted
+        fields = ["user_id", "username", "image"]
 
 
 class FriendsWaitingSerializer(serializers.ModelSerializer):

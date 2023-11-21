@@ -40,7 +40,7 @@ class Messages(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name="пользователь",
-        related_name="сообщение",
+        related_name="messages",
     )
 
     message = models.TextField(verbose_name="сообщение")
