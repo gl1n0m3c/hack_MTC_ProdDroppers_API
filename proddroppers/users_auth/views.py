@@ -18,15 +18,15 @@ class RegisterUserAPIView(APIView):
             user.save()
             return Response(
                 {
-                    "success": ["True"],
-                    "description": ["Регистрация прошла успешно"],
+                    "success": True,
+                    "description": "Регистрация прошла успешно",
                 },
                 status=status.HTTP_201_CREATED,
             )
         return Response(
             {
-                "success": ["False"],
-                "description": ["Такая почта уже зарегистрирована"],
+                "success": False,
+                "description": "Такая почта уже зарегистрирована",
             },
             status=status.HTTP_400_BAD_REQUEST,
         )
@@ -39,8 +39,8 @@ class LoginUserAPIView(APIView):
         except User.DoesNotExist:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Неверный логин или пароль"],
+                    "success": False,
+                    "description": "Неверный логин или пароль",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -51,16 +51,16 @@ class LoginUserAPIView(APIView):
         if user is None:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Неверный логин или пароль"],
+                    "success": False,
+                    "description": "Неверный логин или пароль",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return Response(
             {
-                "success": ["True"],
-                "id": [user.id],
-                "description": ["Авторизация прошла успешно"],
+                "success": True,
+                "id": user.id,
+                "description": "Авторизация прошла успешно",
             },
             status=status.HTTP_200_OK,
         )
@@ -73,8 +73,8 @@ class ChangePasswordView(APIView):
         except User.DoesNotExist:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Такого пользователя нету"],
+                    "success": False,
+                    "description": "Такого пользователя нету",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -85,8 +85,8 @@ class ChangePasswordView(APIView):
         if auth_user is None:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Неверный пароль"],
+                    "success": False,
+                    "description": "Неверный пароль",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -94,8 +94,8 @@ class ChangePasswordView(APIView):
         user.save()
         return Response(
             {
-                "success": ["True"],
-                "description": ["Пароль успешно изменен"],
+                "success": True,
+                "description": "Пароль успешно изменен",
             },
             status=status.HTTP_200_OK,
         )
@@ -108,8 +108,8 @@ class ChangeUsernameAndEmail(APIView):
         except User.DoesNotExist:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Такого пользователя нету"],
+                    "success": False,
+                    "description": "Такого пользователя нету",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -126,15 +126,15 @@ class ChangeUsernameAndEmail(APIView):
             user.save()
             return Response(
                 {
-                    "success": ["True"],
-                    "description": ["Данные успешно изменены"],
+                    "success": True,
+                    "description": "Данные успешно изменены",
                 },
                 status=status.HTTP_200_OK,
             )
         return Response(
             {
-                "success": ["False"],
-                "description": ["Такой логин или почта уже зарегистрированы"],
+                "success": False,
+                "description": "Такой логин или почта уже зарегистрированы",
             },
             status=status.HTTP_400_BAD_REQUEST,
         )
