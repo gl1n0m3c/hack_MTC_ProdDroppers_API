@@ -49,6 +49,7 @@ class LoginUserAPIView(APIView):
         return Response(
             {
                 "success": ["True"],
+                "id": [user.id],
                 "description": ["Авторизация прошла успешно"],
             },
             status=status.HTTP_200_OK,
