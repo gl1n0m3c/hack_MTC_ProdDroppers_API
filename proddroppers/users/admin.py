@@ -34,14 +34,5 @@ class FriendsNotAsseptedAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(UserNewFields)
-class UserImageAdmin(admin.ModelAdmin):
-    list_display = [
-        UserNewFields.user.field.name,
-        UserNewFields.image.field.name,
-        UserNewFields.display_image,
-    ]
-
-
 admin.site.unregister(User)
 admin.site.register(User, NewUserAdmin)

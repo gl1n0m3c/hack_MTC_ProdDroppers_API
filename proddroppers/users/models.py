@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import pre_delete, post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from sorl.thumbnail import delete
 
@@ -29,8 +29,12 @@ class FriendsNotAsseptedManager(models.Manager):
             .select_related(FriendsNotAssepted.user1.field.name)
             .filter(user2=pk)
             .only(
-                f"{FriendsNotAssepted.user1.field.name}__{User.username.field.name}",
-                f"{FriendsNotAssepted.user1.field.name}__{User.usernewfields.field.name}__{UserNewFields.image.field.name}",
+                f"{FriendsNotAssepted.user1.field.name}"
+                + "__"
+                + f"{User.username.field.name}",
+                f"{FriendsNotAssepted.user1.field.name}"
+                + "__usernewfields__"
+                + f"{UserNewFields.image.field.name}",
             )
         )
 

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from users.models import FriendsAssepted, FriendsNotAssepted
+from users.models import FriendsAssepted
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,6 +37,6 @@ class FriendsWaitingSerializer(serializers.ModelSerializer):
         result = list()
         for friend in obj:
             result.append(
-                {"id": friend.user1.id, "name": friend.user1.username}
+                {"id": friend.user1.id, "name": friend.user1.username},
             )
         return result
