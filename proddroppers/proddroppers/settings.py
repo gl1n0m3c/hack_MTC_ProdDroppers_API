@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "users_music.apps.UsersMusicConfig",
     "users_auth.apps.UsersAuthConfig",
     "core.apps.CoreConfig",
+    "friends.apps.FriendsConfig",
 ]
 
 MIDDLEWARE = [
