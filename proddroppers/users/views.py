@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -19,11 +18,11 @@ class DetailAPI(APIView):
 
 class FriendsAPI(APIView):
     def get(self, request, pk, *args, **kwargs):
-        user = get_object_or_404(User, pk=pk)
         friends = FriendsAssepted.objects.get_friends(pk)
 
-        context = {"username": user.username}
-        return Response(FriendsSerializer(friends, context=context).data)
+        serializer = FriendsSerializer(friends, many=True)
+
+        return Response(serializer.data)
 
 
 class FriendsWaitingAPI(APIView):

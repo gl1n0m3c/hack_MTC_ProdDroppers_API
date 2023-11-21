@@ -1,15 +1,15 @@
 [
     {
         "model": "users.friendsassepted",
-        "pk": 2,
+        "pk": 1,
         "fields": {
-            "user1": 5,
-            "user2": 2
+            "user1": 2,
+            "user2": 5
         }
     },
     {
         "model": "users.friendsassepted",
-        "pk": 3,
+        "pk": 2,
         "fields": {
             "user1": 3,
             "user2": 4
@@ -17,10 +17,50 @@
     },
     {
         "model": "users.friendsassepted",
+        "pk": 3,
+        "fields": {
+            "user1": 5,
+            "user2": 4
+        }
+    },
+    {
+        "model": "users.friendsassepted",
         "pk": 4,
         "fields": {
-            "user1": 3,
+            "user1": 5,
             "user2": 2
+        }
+    },
+    {
+        "model": "users.friendsassepted",
+        "pk": 5,
+        "fields": {
+            "user1": 4,
+            "user2": 3
+        }
+    },
+    {
+        "model": "users.friendsassepted",
+        "pk": 6,
+        "fields": {
+            "user1": 4,
+            "user2": 5
+        }
+    },
+    {
+        "model": "users.friendsnotassepted",
+        "pk": 1,
+        "fields": {
+            "user1": 2,
+            "user2": 3
+        }
+    },
+    {
+        "model": "users.friendsnotassepted",
+        "pk": 2,
+        "fields": {
+            "user1": 2,
+            "user2": 4
         }
     },
     {
@@ -32,19 +72,48 @@
         }
     },
     {
-        "model": "users.friendsnotassepted",
-        "pk": 4,
+        "model": "users.usernewfields",
+        "pk": 1,
         "fields": {
-            "user1": 4,
-            "user2": 5
+            "user": 1,
+            "image": "default/default_user_image.png/",
+            "music": []
         }
     },
     {
-        "model": "users.friendsnotassepted",
+        "model": "users.usernewfields",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "image": "default/default_user_image.png/",
+            "music": []
+        }
+    },
+    {
+        "model": "users.usernewfields",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "image": "default/default_user_image.png/",
+            "music": []
+        }
+    },
+    {
+        "model": "users.usernewfields",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "image": "default/default_user_image.png/",
+            "music": []
+        }
+    },
+    {
+        "model": "users.usernewfields",
         "pk": 5,
         "fields": {
-            "user1": 4,
-            "user2": 2
+            "user": 5,
+            "image": "default/default_user_image.png/",
+            "music": []
         }
     }
 ]
