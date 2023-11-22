@@ -8,25 +8,25 @@ from rest_framework.views import APIView
 class RegisterUserAPIView(APIView):
     def post(self, request, *args, **kwargs):
         try:
-            User.objects.get(username=request.data["email"])
+            User.objects.get(username=request.data["email"].split("@")[0])
         except User.DoesNotExist:
             user = User.objects.create(
-                username=request.data["email"],
+                username=request.data["email"].split("@")[0],
                 email=request.data["email"],
             )
             user.set_password(request.data["password"])
             user.save()
             return Response(
                 {
-                    "success": ["True"],
-                    "description": ["Регистрация прошла успешно"],
+                    "success": True,
+                    "description": "Регистрация прошла успешно",
                 },
                 status=status.HTTP_201_CREATED,
             )
         return Response(
             {
-                "success": ["False"],
-                "description": ["Такая почта уже зарегистрирована"],
+                "success": False,
+                "description": "Такая почта уже зарегистрирована",
             },
             status=status.HTTP_400_BAD_REQUEST,
         )
@@ -34,23 +34,33 @@ class RegisterUserAPIView(APIView):
 
 class LoginUserAPIView(APIView):
     def post(self, request, *args, **kwargs):
+        try:
+            user1 = User.objects.get(email=request.data["username"])
+        except User.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "description": "Неверный логин или пароль",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         user = authenticate(
-            username=request.data["username"],
+            username=user1.username,
             password=request.data["password"],
         )
         if user is None:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Неверный логин или пароль"],
+                    "success": False,
+                    "description": "Неверный логин или пароль",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return Response(
             {
-                "success": ["True"],
-                "id": [user.id],
-                "description": ["Авторизация прошла успешно"],
+                "success": True,
+                "id": user.id,
+                "description": "Авторизация прошла успешно",
             },
             status=status.HTTP_200_OK,
         )
@@ -63,8 +73,8 @@ class ChangePasswordView(APIView):
         except User.DoesNotExist:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Такого пользователя нету"],
+                    "success": False,
+                    "description": "Такого пользователя нету",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -75,8 +85,8 @@ class ChangePasswordView(APIView):
         if auth_user is None:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Неверный пароль"],
+                    "success": False,
+                    "description": "Неверный пароль",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -84,75 +94,47 @@ class ChangePasswordView(APIView):
         user.save()
         return Response(
             {
-                "success": ["True"],
-                "description": ["Пароль успешно изменен"],
+                "success": True,
+                "description": "Пароль успешно изменен",
             },
             status=status.HTTP_200_OK,
         )
 
 
-class ChangeEmailAPIView(APIView):
+class ChangeUsernameAndEmail(APIView):
     def post(self, request, *args, **kwargs):
         try:
             user = User.objects.get(id=request.data["id"])
         except User.DoesNotExist:
             return Response(
                 {
-                    "success": ["False"],
-                    "description": ["Такого пользователя нету"],
-                },
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        if user.username == request.data["new_email"]:
-            return Response(
-                {
-                    "success": ["False"],
-                    "description": ["Новая почта совпадает со старой"],
+                    "success": False,
+                    "description": "Такого пользователя нету",
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
         try:
-            User.objects.get(username=request.data["new_email"])
+            User.objects.get(
+                username=request.data["new_username"],
+            )
+            User.objects.get(
+                email=request.data["new_email"],
+            )
         except User.DoesNotExist:
-            user.username = request.data["new_email"]
+            user.username = request.data["new_username"]
             user.email = request.data["new_email"]
             user.save()
             return Response(
                 {
-                    "success": ["True"],
-                    "description": ["Почта успешно изменена"],
+                    "success": True,
+                    "description": "Данные успешно изменены",
                 },
                 status=status.HTTP_200_OK,
             )
         return Response(
             {
-                "success": ["False"],
-                "description": ["Такая почта уже зарегистрирована"],
+                "success": False,
+                "description": "Такой логин или почта уже зарегистрированы",
             },
             status=status.HTTP_400_BAD_REQUEST,
-        )
-
-
-class ChangeFirstNameAndLastNameAPIView(APIView):
-    def post(self, request, *args, **kwargs):
-        try:
-            user = User.objects.get(id=request.data["id"])
-        except User.DoesNotExist:
-            return Response(
-                {
-                    "success": ["False"],
-                    "description": ["Такого пользователя нету"],
-                },
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        user.last_name = request.data["last_name"]
-        user.first_name = request.data["first_name"]
-        user.save()
-        return Response(
-            {
-                "success": ["True"],
-                "description": ["Данные успешно изменены"],
-            },
-            status=status.HTTP_200_OK,
         )
