@@ -8,6 +8,27 @@ from core.models import ImageOperations
 from users_music.models import Music
 
 
+class UserManager(models.Manager):
+    def get_users(self, start):
+        return (
+            self.get_queryset()
+            .select_related("new_fields")
+            .filter(username__startswith=start)
+            .only(
+                NewUser.username.field.name,
+                f"new_fields__{UserNewFields.image.field.name}",
+            )
+            .order_by(NewUser.username.field.name)
+        )
+
+
+class NewUser(User):
+    objects = UserManager()
+
+    class Meta:
+        proxy = True
+
+
 class UserNewFields(models.Model, ImageOperations):
     user = models.OneToOneField(
         User,
@@ -19,7 +40,7 @@ class UserNewFields(models.Model, ImageOperations):
     image = models.ImageField(
         upload_to="images/users/",
         verbose_name="аватарка",
-        default="default/default_user_image.png/",
+        default="default/default_user_image.png",
         null=True,
         blank=True,
     )
