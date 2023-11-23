@@ -1,6 +1,8 @@
+daphne==4.0.0
 Django==4.2.5
 django-cleanup==8.0.0
 djangorestframework==3.14.0
+channels==4.0.0
 python-dotenv==1.0.0
 Pillow==10.1.0
 sorl-thumbnail==12.10.0

@@ -22,6 +22,7 @@ DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() in (
 
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -37,6 +38,12 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "friends.apps.FriendsConfig",
 ]
+
+ASGI_APPLICATION = "proddroppers.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
