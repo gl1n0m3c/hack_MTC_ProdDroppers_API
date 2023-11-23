@@ -8,8 +8,8 @@ from users_auth.views import (
 )
 
 urlpatterns = [
-    path("register", RegisterUserAPIView.as_view()),
-    path("login", LoginUserAPIView.as_view()),
-    path("changepassword", ChangePasswordView.as_view()),
-    path("changedata", ChangeUsernameAndEmail.as_view()),
+    path("register/", RegisterUserAPIView.as_view()),
+    path("login/", LoginUserAPIView.as_view()),
+    path("changepassword/", ChangePasswordView.as_view()),
+    path("changedata/", ChangeUsernameAndEmail.as_view()),
 ]
