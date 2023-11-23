@@ -35,7 +35,7 @@ class RegisterUserAPIView(APIView):
 class LoginUserAPIView(APIView):
     def post(self, request, *args, **kwargs):
         try:
-            user1 = User.objects.get(email=request.data["username"])
+            user1 = User.objects.get(email=request.POST.get("username"))
         except User.DoesNotExist:
             return Response(
                 {
@@ -46,7 +46,7 @@ class LoginUserAPIView(APIView):
             )
         user = authenticate(
             username=user1.username,
-            password=request.data["password"],
+            password=request.POST.get("password"),
         )
         if user is None:
             return Response(

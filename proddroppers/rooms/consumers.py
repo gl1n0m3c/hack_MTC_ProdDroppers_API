@@ -1,5 +1,10 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+from rooms.models import (
+    Rooms,
+    Messages,
+)
+from django.contrib.auth.models import User
 
 
 class ChatRoomConsumer(AsyncWebsocketConsumer):
@@ -27,7 +32,7 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             {
                 "type": "chatroom_message",
-                "message": message,
+                "message": "GDSAHD",
                 "username": username,
             },
         )
@@ -35,7 +40,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
     async def chatroom_message(self, event):
         message = event["message"]
         username = event["username"]
-
         await self.send(
             text_data=json.dumps(
                 {
