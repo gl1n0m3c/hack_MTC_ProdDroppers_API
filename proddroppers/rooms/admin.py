@@ -1,5 +1,5 @@
 from django.contrib import admin
-from rooms.models import Messages, Rooms
+from rooms.models import Messages, Rooms, UsersRooms
 
 
 @admin.register(Rooms)
@@ -12,6 +12,14 @@ class RoomsAdmin(admin.ModelAdmin):
     readonly_fields = [
         Rooms.user.field.name,
         Rooms.current.field.name,
+    ]
+
+
+@admin.register(UsersRooms)
+class UsersRoomsAdmin(admin.ModelAdmin):
+    list_display = [
+        UsersRooms.user.field.name,
+        UsersRooms.room.field.name,
     ]
 
 

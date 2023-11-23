@@ -28,6 +28,29 @@ class Rooms(AbstractNameModel):
         return self.name
 
 
+class UsersRooms(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="пользователь",
+        related_name="room",
+    )
+
+    room = models.OneToOneField(
+        Rooms,
+        on_delete=models.CASCADE,
+        verbose_name="комната",
+        related_name="room",
+    )
+
+    class Meta:
+        verbose_name = "пользователь в комнате"
+        verbose_name_plural = "пользователи в комнатах"
+
+    def __str__(self):
+        return str(self.user)
+
+
 class Messages(models.Model):
     room = models.ForeignKey(
         Rooms,
