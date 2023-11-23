@@ -11,16 +11,24 @@
         "model": "friends.friendsassepted",
         "pk": 2,
         "fields": {
-            "user1": 4,
-            "user2": 3
+            "user1": 5,
+            "user2": 2
         }
     },
     {
         "model": "friends.friendsassepted",
         "pk": 3,
         "fields": {
-            "user1": 4,
-            "user2": 5
+            "user1": 2,
+            "user2": 3
+        }
+    },
+    {
+        "model": "friends.friendsassepted",
+        "pk": 4,
+        "fields": {
+            "user1": 3,
+            "user2": 2
         }
     },
     {
@@ -35,40 +43,32 @@
         "model": "friends.friendsassepted",
         "pk": 6,
         "fields": {
-            "user1": 3,
-            "user2": 4
-        }
-    },
-    {
-        "model": "friends.friendsassepted",
-        "pk": 7,
-        "fields": {
-            "user1": 5,
-            "user2": 2
-        }
-    },
-    {
-        "model": "friends.friendsnotassepted",
-        "pk": 1,
-        "fields": {
-            "user1": 2,
-            "user2": 3
+            "user1": 4,
+            "user2": 5
         }
     },
     {
         "model": "friends.friendsnotassepted",
         "pk": 2,
         "fields": {
-            "user1": 2,
-            "user2": 4
+            "user1": 5,
+            "user2": 3
         }
     },
     {
         "model": "friends.friendsnotassepted",
         "pk": 3,
         "fields": {
-            "user1": 3,
-            "user2": 5
+            "user1": 4,
+            "user2": 2
+        }
+    },
+    {
+        "model": "friends.friendsnotassepted",
+        "pk": 4,
+        "fields": {
+            "user1": 4,
+            "user2": 3
         }
     }
 ]

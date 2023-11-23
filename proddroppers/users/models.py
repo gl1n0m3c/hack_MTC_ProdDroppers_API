@@ -40,7 +40,6 @@ class UserNewFields(models.Model, ImageOperations):
     image = models.ImageField(
         upload_to="images/users/",
         verbose_name="аватарка",
-        default="default/default_user_image.png",
         null=True,
         blank=True,
     )

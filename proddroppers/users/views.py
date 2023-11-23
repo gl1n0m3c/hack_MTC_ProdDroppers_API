@@ -49,24 +49,5 @@ class UsersChangeImageAPI(APIView):  # хуйня
             return Response(error_response)
 
         new_fields = UserNewFields.objects.get(user=user)
-        music = new_fields.music
 
-        image_data_decoded = base64.b64decode(image)
-
-        new_fields.delete()
-
-        UserNewFields.objects.create(
-            user=user,
-            image=ContentFile(
-                image_data_decoded,
-                name=f"user_{user.id}_image.jpg",
-            ),
-            music=music,
-        )
-
-        return Response(
-            {
-                "success": True,
-                "description": ["Изображение изменено!"],
-            },
-        )
+        pass
