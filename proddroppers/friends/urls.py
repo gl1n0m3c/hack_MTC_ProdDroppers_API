@@ -10,6 +10,8 @@ from friends.views import (
 )
 
 
+app_name = "friends"
+
 urlpatterns = [
     path(
         "list/<int:pk>/",

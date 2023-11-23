@@ -30,6 +30,9 @@ class NewUser(User):
 
 
 class UserNewFields(models.Model, ImageOperations):
+    def _image_upload_path(self, filename):
+        return f"images/users/{filename}"
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -38,7 +41,7 @@ class UserNewFields(models.Model, ImageOperations):
     )
 
     image = models.ImageField(
-        upload_to="images/users/",
+        upload_to=_image_upload_path,
         verbose_name="аватарка",
         null=True,
         blank=True,

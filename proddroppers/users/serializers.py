@@ -14,10 +14,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
         )
 
 
-class UsersSerializer(serializers.ModelSerializer):
+class UsersSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField(source="id")
+    username = serializers.CharField()
+    image = serializers.ImageField(source="new_fields.image")
+
     class Meta:
         model = NewUser
-        fields = (
-            NewUser.id.field.name,
-            NewUser.username.field.name,
-        )
+        fields = ["user_id", "username", "image"]

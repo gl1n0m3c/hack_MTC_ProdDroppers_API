@@ -7,6 +7,9 @@ from users_auth.views import (
     RegisterUserAPIView,
 )
 
+
+app_name = "users_auth"
+
 urlpatterns = [
     path("register/", RegisterUserAPIView.as_view()),
     path("login/", LoginUserAPIView.as_view()),
