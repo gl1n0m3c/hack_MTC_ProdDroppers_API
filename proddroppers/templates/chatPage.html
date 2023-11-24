@@ -31,16 +31,16 @@
         </div>
     </div>
 
-    {{ request.user.username|json_script:"user_username" }}
+    {{ request.user.id|json_script:"user_id" }}
     {{ room_name|json_script:"room-name" }}
     <script>
-        const user_username = JSON.parse(document.getElementById('user_username').textContent);
+        const user_id = JSON.parse(document.getElementById('user_id').textContent);
         document.querySelector('#submit').onclick = function (e) {
             const messageInputDom = document.querySelector('#input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
                 'message': message,
-                'username': user_username,
+                'user_id': parseInt(user_id),
             }));
             messageInputDom.value = '';
         };

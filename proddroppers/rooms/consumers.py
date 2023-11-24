@@ -5,6 +5,7 @@ from rooms.models import (
     Messages,
 )
 from django.contrib.auth.models import User
+from channels.db import database_sync_to_async
 
 
 class ChatRoomConsumer(AsyncWebsocketConsumer):
@@ -25,8 +26,8 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
-        username = text_data_json["username"]
-
+        user_id = text_data_json["user_id"]
+        username = await self.get_user(user_id)
         await self.channel_layer.group_send(
             self.room_group_name,
             {
@@ -47,5 +48,12 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
                 }
             )
         )
+
+    @database_sync_to_async
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(id=user_id).username
+        except User.DoesNotExist:
+            return "undefined"
 
     pass

@@ -1,0 +1,11 @@
+[
+{
+    "model": "users_music.albom",
+    "pk": 1,
+    "fields": {
+        "name": "alb1",
+        "artist": 1,
+        "image": "images/music/5a80dabd2f465b7dd7d646970e28fb75_cropped_600x339.jpg"
+    }
+}
+]
