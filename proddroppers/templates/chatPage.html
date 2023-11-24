@@ -34,7 +34,11 @@
     {{ request.user.id|json_script:"user_id" }}
     {{ room_name|json_script:"room-name" }}
     <script>
-        const user_id = JSON.parse(document.getElementById('user_id').textContent);
+        user_id = JSON.parse(document.getElementById('user_id').textContent);
+        if(user_id == null)
+        {
+            user_id = 0;
+        }
         document.querySelector('#submit').onclick = function (e) {
             const messageInputDom = document.querySelector('#input');
             const message = messageInputDom.value;
@@ -45,9 +49,6 @@
             messageInputDom.value = '';
         };
 
-
-
-
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
         const chatSocket = new WebSocket(
@@ -55,7 +56,9 @@
             window.location.host +
             '/'+
             roomName +
-            '/'
+            '/'+
+            user_id +
+            "/"
         );
 
         chatSocket.onmessage = function (e) {
