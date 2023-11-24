@@ -54,7 +54,7 @@ class DetailAPI(APIView):
 class UsersChangeImageAPI(APIView):
     def post(self, request, *args, **kwargs):
         try:
-            user_id = request.data["id"]
+            user_id = int(request.data["id"])
             byte_data = request.data["image"]
 
             user = User.objects.get(pk=user_id)

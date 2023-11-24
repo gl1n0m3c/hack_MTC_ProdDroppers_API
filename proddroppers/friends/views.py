@@ -14,10 +14,10 @@ error_response = {
 
 def checker(request):
     try:
-        receiver = request.data["receiver"]
-        sender = request.data["sender"]
+        receiver = int(request.data["receiver"])
+        sender = int(request.data["sender"])
 
-        if not (isinstance(receiver, int) and isinstance(sender, int)):
+        if sender == receiver:
             raise ValueError
 
         user1 = User.objects.get(pk=sender)
@@ -33,7 +33,12 @@ class FriendsAPI(APIView):
 
         serializer = FriendsSerializer(friends, many=True)
 
-        return Response(serializer.data)
+        response_data = {
+            "success": True,
+            "data": serializer.data,
+        }
+
+        return Response(response_data)
 
 
 class FriendsWaitingAPI(APIView):
@@ -42,7 +47,12 @@ class FriendsWaitingAPI(APIView):
 
         serializer = FriendsWaitingSerializer(friends, many=True)
 
-        return Response(serializer.data)
+        response_data = {
+            "success": True,
+            "data": serializer.data,
+        }
+
+        return Response(response_data)
 
 
 class FriendsAddAPI(APIView):

@@ -32,22 +32,6 @@
         }
     },
     {
-        "model": "friends.friendsassepted",
-        "pk": 5,
-        "fields": {
-            "user1": 5,
-            "user2": 4
-        }
-    },
-    {
-        "model": "friends.friendsassepted",
-        "pk": 6,
-        "fields": {
-            "user1": 4,
-            "user2": 5
-        }
-    },
-    {
         "model": "friends.friendsnotassepted",
         "pk": 2,
         "fields": {

@@ -1,6 +1,10 @@
 from django.urls import path
 
-from users.views import DetailAPI, UsersAPI, UsersChangeImageAPI
+from users.views import (
+    DetailAPI,
+    UsersAPI,
+    UsersChangeImageAPI,
+)
 
 
 app_name = "users"

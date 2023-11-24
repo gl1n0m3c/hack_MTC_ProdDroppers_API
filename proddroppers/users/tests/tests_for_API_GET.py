@@ -6,7 +6,7 @@ import parameterized
 error_description = ["Ты отправил мне какую-то дичь"]
 
 
-class UsersTestsAPI(TestCase):
+class UsersTestsAPIGET(TestCase):
     fixtures = [
         "fixtures/test_users.json",
     ]
@@ -44,12 +44,18 @@ class UsersTestsAPI(TestCase):
             ),
         ],
     )
-    def test_users_endpoint_success_answers(self, params, num, nicks, ids):
+    def test_users_list_endpoint_success(
+        self,
+        params,
+        number_of_friends,
+        nicks,
+        ids,
+    ):
         response = Client().get(reverse("users:users"), params)
 
         answer = response.json()
 
-        self.assertEqual(len(answer), num)
+        self.assertEqual(len(answer), number_of_friends)
 
         for n, friend in enumerate(answer):
             self.assertEqual(friend["user_id"], ids[n])
@@ -63,7 +69,7 @@ class UsersTestsAPI(TestCase):
             ({"page": "none", "start": ""},),
         ],
     )
-    def test_users_endpoint_invalid_answers(self, params):
+    def test_users_list_endpoint_invalid(self, params):
         response = Client().get(reverse("users:users"), params)
 
         answer = response.data
@@ -78,9 +84,9 @@ class UsersTestsAPI(TestCase):
             (3, "test2"),
             (4, "test3"),
             (5, "test4"),
-        ]
+        ],
     )
-    def test_detail_endpoint_success_answers(self, num, name):
+    def test_detail_endpoint_success(self, num, name):
         response = Client().get(reverse("users:profile", kwargs={"pk": num}))
 
         answer = response.data
@@ -89,7 +95,7 @@ class UsersTestsAPI(TestCase):
         self.assertEqual(answer["username"], name)
         self.assertEqual(answer["email"], "")
 
-    def test_detail_endpoint_success_answers(self):
+    def test_detail_endpoint_invalid(self):
         response = Client().get(reverse("users:profile", kwargs={"pk": 6}))
 
         answer = response.data
