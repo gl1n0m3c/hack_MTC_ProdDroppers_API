@@ -1,0 +1,247 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    /* overflow: hidden; */
+    background-color: black;
+    overflow-y: auto;
+}
+
+.black-top {
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    scroll-behavior: smooth;
+}
+
+#logo {
+    width: 18.5vh;
+    height: 18.5vh;
+}
+
+.equalizer {
+    /* position: fixed; */
+    bottom: 0;
+    left: 15%;
+    margin: 0;
+    padding: 0;
+    color: red;
+}
+.about {
+    color: #FFF;
+    text-align: center;
+    font-family: "MTSText-Regular";
+    font-size: 4vh;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+
+    position: absolute;
+    bottom: 1vh;
+    right: 20vh; /* Adjust as needed */
+
+}
+
+.about svg{
+    width: 4.4vh;
+    height: 4.4vh;
+}
+
+
+.white-middle .about {
+    position: relative;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.1vh;
+    /* position: absolute; */
+    margin-left: auto;
+    top: 20vh;
+}
+.white-middle .about h1 {
+    color:  var(--RED, #FF0032);
+    text-align: right;
+    font-family: "MTSWide-Regular";
+    font-weight: 700;
+    font-size: 3vh;
+}
+.white-middle .about h2 {
+    color: #000;
+    font-family: "MTSText-Regular";
+    text-align: right;
+    font-size: 2.4vh;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2vh;
+}
+.black-top .row_eq {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    padding-left: 10vh;
+    /* margin-left: 1%; */
+    margin-bottom: 0.5vh;
+}
+.black-top .line {
+    background-color: #FFF;
+    border-radius: 1vh 1vh 0px 0px;
+    width: 2vh;
+    margin-bottom: 0;
+    margin-right: 4vh;
+}
+
+.white-middle .row_eq {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding-left: 10vh;
+    padding-top: 0.5vh;
+    /* margin-top: 1%; */
+    /* left: 9.85%; */
+}
+.white-middle .line {
+    background-color: #FF0032;
+    border-radius: 0px 0px 1vh 1vh;
+    width: 2vh;
+    margin-bottom: 0;
+    margin-right: 4vh;
+}
+
+
+
+.white-middle {
+    width: 100%;
+    height: 90vh;
+    background: white;
+    background-color: white;
+}
+.label {
+    margin-left: auto;
+    margin-right: 15vh;
+}
+.label .music {
+    color: #FFF;
+    font-family: "MTSWide-Bold";
+    font-size: 18vh;
+    font-style: normal;
+    line-height: 10vh;
+    letter-spacing: 2.5vh;
+    padding-top: 2vh;
+}
+.label .description {
+    color: var(--RED, #FF0032);
+    font-family: "MTSUltraExtended-Bold";
+    font-size: 5.6vh;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.5vh;
+    padding-left: 0.3vh;
+}
+
+.black-top .row {
+    display: flex;  
+    position: relative;
+    top: 45vh;
+    padding-left: 20vh;
+    transform: translateY(-55%);
+}
+footer {
+    color: red;
+    height: 10vh;
+}
+.container {
+    display: flex;
+    /* padding-left:%; */
+    /* margin-left: 1%; */
+}
+
+
+.start_btn {
+    width: 45.5vh;
+    height: 10.9vh;
+    padding: 1vh;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+    flex-shrink: 0;
+    background: #000;
+
+
+    color: #FFF;
+    text-align: center;
+    font-family: "MTSWide-Bold";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 0px; /* 0% */
+
+    margin-left: 21vh;
+    margin-top: 10vh;
+}
+.start_btn:hover{
+    background-color: rgb(63, 63, 63);
+}
+.start_btn:active{
+    background-color: rgb(73, 73, 73);
+}
+.container-line {
+    display: flex;
+    margin-top: 15vh;
+    padding-left: 10px;
+}
+  
+.container-line .second {
+    /* width: 626.5px; */
+    flex-shrink: 0;
+    position: relative;
+    top: -16px; /* Задайте нужное вам значение смещения вверх */
+    right: 15px;
+    margin-right: 0; /* Уберем отступ справа */
+  }
+
+footer .container {
+    margin-left: 10vh;
+    margin-top: 1vh;
+    color: #FFF;
+
+    text-align: center;
+    font-family: "MTS";
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 170%;
+}
+
+
+.footer_text{
+    display: flex;
+    margin-left: auto;
+    padding-right: 10vh;
+}
+.footer_text h1 {
+    color: #FFF;
+    text-align: center;
+    font-family: "MTSWide-Bold";
+    font-size: 4vh;
+    font-style: normal;
+    font-weight: 700;
+}   
+
+.footer_text h2{
+    color: #FFF;
+    font-family: "MTSWide-Light";
+    font-size: 3.5vh;
+    font-style: normal;
+    font-weight: 400;
+}
+#footer_logo {
+    width: 8vh;
+    height: 8vh;
+}

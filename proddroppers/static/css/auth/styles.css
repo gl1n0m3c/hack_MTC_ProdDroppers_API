@@ -1,0 +1,188 @@
+*{
+    margin:0;
+    padding: 0;
+}
+.mains {
+    position:relative;
+    height: 90vh;
+    background-color: black;
+    z-index: 2;
+}
+
+.logo {
+    width: 28.5vh;
+    height: 28.5vh;
+    flex-shrink: 0;
+    margin-left: 32.5vh;
+    margin-top: 15vh;
+}
+
+.Music {
+    margin-left: 31.9vh;
+    margin-top: 10vh;
+}
+
+.Music h1 {
+    color: #fff;
+    font-family: "MTSWide-Black";
+    font-size: 11vh;
+    line-height: 9vh;
+}
+
+.Music h2 {
+    color: #FF0032;
+    margin-left: 0.5vh;
+    margin-top: 0.3vh;
+    font-family: 'MTSUltraExtended-Bold';
+    font-size: 3.4vh;
+    line-height: 4vh;
+}
+
+.application {
+    position: absolute;
+    width: 40vh;
+    height: 58vh;
+    background: #fff;
+    margin-left: 120vh;
+    padding-top:auto;
+    top: 15vh;
+}
+
+.words {
+    display: inline-block;
+    margin-left: 5.5vh;
+    margin-top: 4vh;
+    font-family: 'MTSWide-Medium';
+    font-size: 2.2vh;
+}
+
+#registrations {
+    position: relative;
+    margin-left: 5vh;
+}
+
+.text_input {
+    margin-top: 5vh;
+    margin-left: 5vh;
+    border-radius: 1vh;
+    border: 0.25vh solid var(--GREY, #D4D4D4);
+
+    background: #FFF;
+
+    display: flex;
+    width: 25vh;
+    height: 5vh;
+    padding: 0vh 2.4vh;
+    align-items: center;
+    gap: 1vh;
+    flex-shrink: 0;
+    font-size: 1.4vh;
+    font-family: "MTSText-Regular";
+}
+
+input::placeholder{
+    color:#c7c7c7
+}
+
+.button {
+    margin-top: 5vh;
+    margin-left: 5vh;
+    border-radius: 1vh;
+    border: 0.25vh solid var(--GREY, #D4D4D4);
+    background: #FF0032;
+    color: #fff;
+
+    display: flex;
+    width: 29.25vh;
+    height: 5vh;
+    align-items: center;
+    flex-shrink: 0;
+    font-family: "MTSText-Medium";
+
+
+    font-size: 1.6vh;
+    font-style: normal;
+    font-weight: 500;
+    justify-content: center;
+}
+
+.button:hover {
+    background-color: #eb8282;
+}
+
+.button:active {
+    background-color: #efb0b0;
+}
+
+.have_account {
+    margin-left: 9vh;
+    margin-top: 2.5vh;
+    background: #FFF;
+
+    display: inline-block;
+    font-family: "MTSWide-Regular";
+    font-size: 1.6vh;
+}
+
+.enter2 {
+    display: inline-block;
+    width: 3vh;
+    height: 3vh;
+    font-family: "MTSWide-Regular";
+    text-decoration: underline;
+    font-size: 1.6vh;
+}
+
+.footer {
+    background: #fff;
+}
+
+.logo-mini {
+    margin-left: 23vh;
+    margin-top: 1.5vh;
+    display: inline-block;
+    position: relative;
+}
+
+.parts-equaliser {
+    position: absolute;
+    display:inline-block;
+    margin-left: 8.9vh;
+    bottom: 0.05vh; 
+    z-index: 1;
+}
+
+.XXX {
+    display:inline-block;
+    position: relative;
+    margin-left: 100vh;
+    font-size: 4.8vh;
+    bottom: 2.5vh;
+}
+
+#MTS_mini {
+    display: inline-block;
+
+    text-align: center;
+    font-family: "MTSWide-Bold";
+    font-size: 4vh;
+    font-style: normal;
+    font-weight: 700;
+
+}
+
+#MTS_mini2 {
+    display: inline-block;
+
+    padding-left: 1vh;
+    font-family: "MTSWide-Light";
+    font-size: 3.5vh;
+    font-style: normal;
+    font-weight: 400;
+}
+.application a{
+    position: relative;
+    color: gray;
+    margin-left: 3vh;
+    
+}
