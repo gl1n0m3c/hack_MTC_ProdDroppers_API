@@ -9,10 +9,6 @@ class RoomsAdmin(admin.ModelAdmin):
         Rooms.user.field.name,
         Rooms.current.field.name,
     ]
-    readonly_fields = [
-        Rooms.user.field.name,
-        Rooms.current.field.name,
-    ]
 
 
 @admin.register(UsersRooms)
