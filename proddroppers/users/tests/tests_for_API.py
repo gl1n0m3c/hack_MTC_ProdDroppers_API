@@ -70,3 +70,28 @@ class UsersTestsAPI(TestCase):
 
         self.assertEqual(answer["success"], False)
         self.assertEqual(answer["description"], error_description)
+
+    @parameterized.parameterized.expand(
+        [
+            (1, "Nick"),
+            (2, "test1"),
+            (3, "test2"),
+            (4, "test3"),
+            (5, "test4"),
+        ]
+    )
+    def test_detail_endpoint_success_answers(self, num, name):
+        response = Client().get(reverse("users:profile", kwargs={"pk": num}))
+
+        answer = response.data
+
+        self.assertEqual(answer["id"], num)
+        self.assertEqual(answer["username"], name)
+        self.assertEqual(answer["email"], "")
+
+    def test_detail_endpoint_success_answers(self):
+        response = Client().get(reverse("users:profile", kwargs={"pk": 6}))
+
+        answer = response.data
+
+        self.assertEqual(answer["success"], False)

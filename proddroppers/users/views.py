@@ -44,7 +44,10 @@ class UsersAPI(APIView):
 
 class DetailAPI(APIView):
     def get(self, request, pk, *args, **kwargs):
-        user = User.objects.get(pk=pk)
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response(error_response)
         return Response(UserProfileSerializer(user).data)
 
 
