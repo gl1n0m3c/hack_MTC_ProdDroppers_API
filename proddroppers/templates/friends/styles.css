@@ -1,0 +1,125 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+body {
+    background: #000;
+}
+    
+/* HEADER */ 
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    width: 100%;
+    height: 18vh;
+}
+header .container {
+    padding-top: 1.3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header .container  h1{
+    color: #FFF;
+    text-align: center;
+    font-family: "MTSWide-Medium";
+    font-size: 2.4vh;
+    font-style: normal;
+    font-weight: 500;
+}
+header .container #logo {
+    margin-right: 2.4vh;
+}
+header .music_label h1 {
+    color: #FFF;
+    font-family: "MTSWide-Black";
+    font-size: 6vh;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 5vh;
+    letter-spacing: 0.3vh;
+}
+header .music_label h2 {
+    color:#FF0032;
+    font-family: "MTSUltraExtended-Bold";
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.2px;
+}
+
+header .container h1 {
+    color: #fff;
+}
+
+header .nav-bar-lines {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    right: 3vh;
+    color: white;
+    height: 3vh;
+}
+
+header .line {
+    margin-top: 0.7vh;
+    width: 3vh;
+    height:  0.16vh;
+    background-color: #FFF;
+    border-radius: 0.5vh;
+}
+
+
+
+/* MAIN */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    height: 93vh;
+    
+}
+
+
+
+
+/* FOOOTER */
+footer {
+    display: flex;
+    background-color: #000;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: 7vh;
+    color: #fff;
+}
+
+footer h1 {
+    color: #FFF;    
+    font-family: "MTSWide-Bold";
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 700;
+}
+
+footer h2 {
+    padding-left: 0.8vh;
+    color: #FFF;
+    font-family: "MTSWide-Regular";
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 400;   
+}
