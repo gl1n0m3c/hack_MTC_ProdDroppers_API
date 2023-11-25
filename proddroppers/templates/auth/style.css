@@ -6,7 +6,7 @@
 body {
     background: #000;
 }
-  
+    
 /* HEADER */ 
 header {
     display: flex;
@@ -38,6 +38,7 @@ header .music_label h2 {
     letter-spacing: 0.2px;
 }
 
+
 /* MAIN */
 
 
@@ -55,6 +56,7 @@ main {
 }
 main form {
     margin-top: 10vh;
+    flex-grow: 1;
 }
 main form .header_label {
     justify-content: center;
