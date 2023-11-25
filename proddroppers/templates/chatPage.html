@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1" class="h4 pt-5">Chatroom</label>
                         <audio id="myAudio" controls autoplay muted>
-                            <source src="{{ music.music_file.url }}" type="audio/wav">
+                            <source src="{{ music.music_file.url }}">
                             Your browser does not support the audio element.
                           </audio> 
                         <textarea class="form-control" id="chat-text" rows="10"></textarea><br>
@@ -29,13 +29,15 @@
                         <input class="form-control" id="input" type="text"></br>
                     </div>
                     <input class="btn btn-secondary btn-lg btn-block" id="submit" type="button" value="Send">
+                    <input class="btn btn-secondary btn-lg btn-block" id="delete-room" type="button" value="Delete Room">
+                    <input class="btn btn-secondary btn-lg btn-block" id="change-admin" type="button" value="Change Admin">
                 </form>
             </div>
         </div>
     </div>
     
     {{ request.user.id|json_script:"user_id" }}
-    {{ room_name|json_script:"room-name" }}
+    {{ room_id|json_script:"room-name" }}
     <script>
         var audio = document.getElementById('myAudio');
         user_id = JSON.parse(document.getElementById('user_id').textContent);
@@ -50,17 +52,43 @@
                 'message': message,
                 'user_id': parseInt(user_id),
                 'audio_time': parseInt(audio.currentTime),
-                'audio_paused': audio.paused
+                'audio_paused': audio.paused,
+                'delete_room': false,
+                'change_admin': false
             }));
             messageInputDom.value = '';
         };
+
+        document.querySelector("#delete-room").onclick = function(e){
+            chatSocket.send(JSON.stringify({
+                'message': "",
+                'user_id': parseInt(user_id),
+                'audio_time': parseFloat(audio.currentTime),
+                'audio_paused': audio.paused,
+                'delete_room': true,
+                'change_admin': false
+            }));
+        }
+
+        document.querySelector("#change-admin").onclick = function(e){
+            chatSocket.send(JSON.stringify({
+                'message': "",
+                'user_id': parseInt(user_id),
+                'audio_time': parseFloat(audio.currentTime),
+                'audio_paused': audio.paused,
+                'delete_room': false,
+                'change_admin': true
+            }));
+        }
 
         function sync_audio(){
             chatSocket.send(JSON.stringify({
                 'message': "",
                 'user_id': parseInt(user_id),
                 'audio_time': parseFloat(audio.currentTime),
-                'audio_paused': audio.paused
+                'audio_paused': audio.paused,
+                'delete_room': false,
+                'change_admin': false
             }));
         }
 
@@ -92,9 +120,14 @@
                 }
             }
             console.log(data)
+            if(data.deleted_room){
+                location.reload()
+            }
+            if (data.changed_admin && data.admin_username){
+                document.querySelector('#chat-text').value += ('***' + '\n' + data.admin_username + ' теперь админ комнаты' + '\n'+'***')
+            }
             if (data.message != "" && data.username != "" && data.date)
             {
-                console.log(data.date)
                 document.querySelector('#chat-text').value += (data.username + ', ' + data.date + ': ' + data.message +'\n')
             }
         }

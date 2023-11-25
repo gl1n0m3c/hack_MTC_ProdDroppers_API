@@ -6,15 +6,10 @@ from users_music.models import Music
 
 
 class Rooms(AbstractNameModel):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        verbose_name="админ",
-        related_name="rooms",
-    )
-
     current = models.ForeignKey(
         Music,
+        null=True,
+        blank=True,
         on_delete=models.CASCADE,
         verbose_name="музыка",
         related_name="rooms",
@@ -36,7 +31,12 @@ class UsersRooms(models.Model):
         related_name="room",
     )
 
-    room = models.OneToOneField(
+    is_admin = models.BooleanField(
+        verbose_name="является ли администратором",
+        default=False,
+    )
+
+    room = models.ForeignKey(
         Rooms,
         on_delete=models.CASCADE,
         verbose_name="комната",
