@@ -1,9 +1,9 @@
 import json
-from venv import create
-from channels.generic.websocket import AsyncWebsocketConsumer
-from rooms.models import Rooms, Messages, UsersRooms
-from django.contrib.auth.models import User
+
 from channels.db import database_sync_to_async
+from channels.generic.websocket import AsyncWebsocketConsumer
+from django.contrib.auth.models import User
+from rooms.models import Messages, Rooms, UsersRooms
 
 
 class ChatRoomConsumer(AsyncWebsocketConsumer):
@@ -13,7 +13,8 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         self.room_group_name = "chat_%s" % self.room_id
         await self.create_user_in_room(self.user_id, self.room_id)
         await self.channel_layer.group_add(
-            self.room_group_name, self.channel_name
+            self.room_group_name,
+            self.channel_name,
         )
 
         await self.accept()
@@ -25,7 +26,8 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         else:
             await self.delete_user_in_room(self.user_id, self.room_id)
         await self.channel_layer.group_discard(
-            self.room_group_name, self.channel_name
+            self.room_group_name,
+            self.channel_name,
         )
 
     async def receive(self, text_data):
@@ -50,7 +52,9 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         msg_date = False
         if message != "":
             msg_date = await self.create_message(
-                user_id, message, self.room_id
+                user_id,
+                message,
+                self.room_id,
             )
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -93,8 +97,8 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
                     "changed_admin": changed_admin,
                     "deleted_room": deleted_room,
                     "admin_username": admin_username,
-                }
-            )
+                },
+            ),
         )
 
     @database_sync_to_async
@@ -106,7 +110,9 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
             return
         try:
             uir_admin = UsersRooms.objects.get(
-                room=room, user=user, is_admin=True
+                room=room,
+                user=user,
+                is_admin=True,
             )
             uir_default = UsersRooms.objects.get(room=room, is_admin=False)
         except UsersRooms.DoesNotExist:

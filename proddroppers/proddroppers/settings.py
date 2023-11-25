@@ -42,7 +42,9 @@ INSTALLED_APPS = [
 ASGI_APPLICATION = "proddroppers.asgi.application"
 
 CHANNEL_LAYERS = {
-    "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
 }
 
 MIDDLEWARE = [

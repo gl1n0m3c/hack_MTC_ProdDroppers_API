@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from rooms import views as chat_views
 
 
