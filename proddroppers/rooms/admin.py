@@ -6,11 +6,6 @@ from rooms.models import Messages, Rooms, UsersRooms
 class RoomsAdmin(admin.ModelAdmin):
     list_display = [
         Rooms.name.field.name,
-        Rooms.user.field.name,
-        Rooms.current.field.name,
-    ]
-    readonly_fields = [
-        Rooms.user.field.name,
         Rooms.current.field.name,
     ]
 
@@ -19,6 +14,7 @@ class RoomsAdmin(admin.ModelAdmin):
 class UsersRoomsAdmin(admin.ModelAdmin):
     list_display = [
         UsersRooms.user.field.name,
+        UsersRooms.is_admin.field.name,
         UsersRooms.room.field.name,
     ]
 

@@ -2,11 +2,13 @@ from django.http import Http404
 from django.shortcuts import render
 from rooms.models import Rooms
 
+from users_music.models import Music
 
-def chatPage(request, room_name):
+
+def chat_page(request, room_id):
     try:
-        Rooms.objects.get(id=room_name)
-    except:
+        Rooms.objects.get(id=room_id)
+    except Rooms.DoesNotExist:
         raise Http404
-    context = {"room_name": room_name}
+    context = {"room_id": room_id, "music": Music.objects.get(id=1)}
     return render(request, "chatPage.html", context)
