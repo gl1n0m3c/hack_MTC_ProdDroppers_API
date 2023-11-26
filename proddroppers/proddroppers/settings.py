@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "users_auth.apps.UsersAuthConfig",
     "core.apps.CoreConfig",
     "friends.apps.FriendsConfig",
+    "sslserver",
+    'corsheaders',
 ]
 
 ASGI_APPLICATION = "proddroppers.asgi.application"
@@ -55,6 +57,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+]
+CORS_ALLOWED_ORIGINS = [
+    "https://music-mts.ru",
+    "https://music-mts.ru:5000",
 ]
 
 if DEBUG:
@@ -128,5 +135,5 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-
+CORS_ALLOW_CREDENTIALS = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
