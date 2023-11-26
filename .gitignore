@@ -6,7 +6,8 @@ __pycache__/
 
 *.so
 
-
+cert.pem
+key.pem
 cache
 .vscode
 .Python
