@@ -181,6 +181,82 @@ main .line {
 }
 
 
+
+/* NAVIGATION BAR */
+main .navigation-bar {
+    display: none;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4vh 0px 4vh 4vh;
+    background: #FFF;
+    box-shadow: 0.31vh  0.31vh 0.78vh 0.78vh rgba(0, 0, 0, 0.25);
+    width: 25.6vh;
+    height: 50vh;
+    position: absolute;
+    right: 3vh; /* Прикрепляем к правому краю страницы */
+    top: 20vh;
+    z-index: 2;
+    animation: fadeIn 0.5s ease-in-out;
+    flex-direction: column; /* Устанавливаем направление столбца */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+main .navigation-bar .user {
+    padding-top: 4vh;
+    
+}
+main .user svg {
+    justify-content: center;
+    width: 10.1vh;
+    height: 10vh;
+}
+main .navigation-bar h1 {
+    color: #000;
+    text-align: center;
+    font-family: "MTSWide-Medium";
+    font-size: 2.4vh;
+    font-weight: 500;
+    
+    /* width: 10px; */
+}
+main .navigation-bar .items {
+    padding-top: 3vh;
+}
+main .navigation-bar h2 {
+    color: #000;
+    text-align: center;
+    font-family: "MTSWide-Regular";
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 4vh;
+    letter-spacing: 0.2vh;
+    transition: transform 0.3s ease;
+}
+main .navigation-bar h2:hover {
+transform: scale(1.2); /* изменяем масштаб при наведении мыши */
+}
+main .navigation-bar .footer {  
+    margin-top: auto;
+    padding-bottom: 1vh;
+}
+a {
+    text-decoration: none;
+}
+
+
+
+
 /* FOOOTER */
 footer {
     display: flex;
