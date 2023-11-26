@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.http import Http404
+from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -25,3 +27,13 @@ class RoomsAPI(APIView):
 
         Rooms.objects.create(name=name)
         return Response({"success": True, "description": ["Комната создана"]})
+
+
+def chat_page(request, room_id):
+    try:
+        room = Rooms.objects.get(id=room_id)
+    except Rooms.DoesNotExist:
+        raise Http404
+    context = {"room_name": room_id}
+    context = {"room_id": room_id, "music": room.current}
+    return render(request, "chatPage.html", context)

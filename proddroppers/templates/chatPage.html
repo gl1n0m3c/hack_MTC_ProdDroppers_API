@@ -18,7 +18,10 @@
             <div class="col-6">
                 <form>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1" class="h4 pt-5">Chatroom</label>
+                        <label for="exampleFormControlTextarea1" class="h4 pt-5">Комната</label>
+                        <br>
+                        <h5>{{ music.name }}</h5>
+                        <br>
                         <audio id="myAudio" controls autoplay muted>
                             <source src="{{ music.music_file.url }}">
                             Your browser does not support the audio element.
@@ -95,7 +98,13 @@
         setInterval(sync_audio, 500);
 
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
+        console.log('ws://' +
+            window.location.host +
+            '/'+
+            roomName +
+            '/'+
+            user_id +
+            "/")
         const chatSocket = new WebSocket(
             'ws://' +
             window.location.host +
@@ -119,7 +128,6 @@
                     audio.play()
                 }
             }
-            console.log(data)
             if(data.deleted_room){
                 location.reload()
             }
