@@ -20,8 +20,15 @@ class RoomsAPI(APIView):
     def post(self, request, *args, **kwargs):
         try:
             name = request.data["name"]
+            music = request.data["music"]
         except KeyError:
             Response(error_response)
 
-        Rooms.objects.create(name=name)
-        return Response({"success": True, "description": ["Комната создана"]})
+        room = Rooms.objects.create(name=name, current=music)
+        return Response(
+            {
+                "success": True,
+                "id": room.id,
+                "description": ["Комната создана"],
+            }
+        )
