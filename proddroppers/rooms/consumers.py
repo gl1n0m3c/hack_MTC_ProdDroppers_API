@@ -34,8 +34,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         user_id = text_data_json["user_id"]
-        audio_time = text_data_json["audio_time"]
-        audio_paused = text_data_json["audio_paused"]
         delete_room = text_data_json["delete_room"]
         change_admin = text_data_json["change_admin"]
         deleted_room = False
@@ -63,8 +61,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
                 "message": message,
                 "username": username,
                 "is_admin": admin,
-                "audio_time": audio_time,
-                "audio_paused": audio_paused,
                 "user_id": user_id,
                 "date": msg_date,
                 "changed_admin": changed_admin,
@@ -77,8 +73,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         message = event["message"]
         username = event["username"]
         admin = event["is_admin"]
-        audio_time = event["audio_time"]
-        audio_paused = event["audio_paused"]
         user_id = event["user_id"]
         msg_date = event["date"]
         deleted_room = event["deleted_room"]
@@ -90,8 +84,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
                     "message": message,
                     "username": username,
                     "is_admin": admin,
-                    "audio_time": audio_time,
-                    "audio_paused": audio_paused,
                     "user_id": user_id,
                     "date": msg_date,
                     "changed_admin": changed_admin,
