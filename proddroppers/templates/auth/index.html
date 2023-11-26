@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Авторизация</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <link rel="stylesheet" href="../fonts/fonts.css">
   <link rel="stylesheet" href="style.css" />
 
@@ -28,7 +29,7 @@
       </div>
     </header>
     <main>
-        <form>
+        <div class="form">
           <div class="header_label">
             <h1 id="reg_btn">Регистрация</h1>
             <h2 id="login_btn">Вход</h2>
@@ -39,14 +40,14 @@
             <input type="email" id="email" name="email"  placeholder="Введите электронную почту">
             <input type="password" id="password" name="password"  placeholder="Введите пароль">
             <input type="password" id="password2" name="password"  placeholder="Повторите пароль">
-            <button id="enter">Зарегистрироваться</button>
+            <button id="enter" onclick="login()">Зарегистрироваться</button>
           </div>
 
           <div class="footer">
             <h1 id="account_label">Уже есть аккаунт?</h1>
             <h2 id="account_btn">Войти</h2>
           </div>
-        </form>
+        </div>
 
 
         <div class="equalizer">

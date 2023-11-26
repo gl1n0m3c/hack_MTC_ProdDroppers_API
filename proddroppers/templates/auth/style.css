@@ -54,15 +54,15 @@
         height: 85vh;
         
     }
-    main form {
+    main .form {
         margin-top: 10vh;
         flex-grow: 1;
     }
-    main form .header_label {
+    main .form .header_label {
         justify-content: center;
         display: flex;
     }
-    main form .header_label h1 {
+    main .form .header_label h1 {
         color: #000;
         font-family: "MTSWide-Medium";
         font-size: 2vh;
@@ -71,7 +71,7 @@
         line-height: normal;
         text-transform: capitalize;
     }
-    main form .header_label h2 {
+    main .form .header_label h2 {
         padding-left: 3.6vh;
         color:#D4D4D4;
         font-family: "MTSWide-Medium";
@@ -81,7 +81,7 @@
         line-height: normal;
     }
 
-    main form .inputs {
+    main .form .inputs {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -94,7 +94,7 @@
         
     }
 
-    main form input {
+    main .form input {
         margin-top: 3.1vh;
         border-radius: 1vh;
         border: 0.25vh solid #D4D4D4;
@@ -111,27 +111,27 @@
         font-size: 1.4vh;
         font-family: "MTSText-Regular";
     }
-    main form input:hover{
+    main .form input:hover{
         border-radius: 1vh;
         border: 0.2vh solid #BFBFBF;
         background: #FFF;
         box-shadow: 0px 0.2vh 0.6vh 0px rgba(0, 0, 0, 0.25);
     }
-    main form input:active{
+    main .form input:active{
         border-radius: 1vh;
         border: 0.2vh solid #000000;
         background: #FFF;
     }
-    main form input:invalid {
+    main .form input:invalid {
         border-radius: 1vh;
         border: 0.2vh solid #FF0032;
         background: #FFF;
     }
-    main form input::placeholder{
+    main .form input::placeholder{
         color:#c7c7c7
     }
 
-    main form button {
+    main .form button {
         margin-top: 3.1vh;
         display: flex;
         width: 100%;
@@ -154,13 +154,13 @@
         line-height: normal;
     }
 
-    main form .footer {
+    main .form .footer {
         margin-top: 1.5vh;
         display: flex;
         justify-content: center;
     }
 
-    main form .footer h1{
+    main .form .footer h1{
         color: #000;
         text-align: center;
         font-family: "MTSWide-Regular";
@@ -170,7 +170,7 @@
         line-height: normal;
     }
 
-    main form .footer h2{
+    main .form .footer h2{
         padding-left: 0.5vh;
         color: #000;
         font-family: "MTSWide-Regular";
