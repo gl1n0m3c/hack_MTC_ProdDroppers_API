@@ -22,6 +22,10 @@
                         <br>
                         <h5>{{ music.name }}</h5>
                         <br>
+                        <audio id="myAudio" controls autoplay muted>
+                            <source src="{{ music.music_file.url }}">
+                            Your browser does not support the audio element.
+                          </audio> 
                         <textarea class="form-control" id="chat-text" rows="10"></textarea><br>
                     </div>
                     <div class="form-group">
@@ -38,6 +42,7 @@
     {{ request.user.id|json_script:"user_id" }}
     {{ room_id|json_script:"room-name" }}
     <script>
+        var audio = document.getElementById('myAudio');
         user_id = JSON.parse(document.getElementById('user_id').textContent);
         if(user_id == null)
         {
@@ -49,6 +54,8 @@
             chatSocket.send(JSON.stringify({
                 'message': message,
                 'user_id': parseInt(user_id),
+                'audio_time': parseInt(audio.currentTime),
+                'audio_paused': audio.paused,
                 'delete_room': false,
                 'change_admin': false
             }));
@@ -59,6 +66,8 @@
             chatSocket.send(JSON.stringify({
                 'message': "",
                 'user_id': parseInt(user_id),
+                'audio_time': parseFloat(audio.currentTime),
+                'audio_paused': audio.paused,
                 'delete_room': true,
                 'change_admin': false
             }));
@@ -68,10 +77,25 @@
             chatSocket.send(JSON.stringify({
                 'message': "",
                 'user_id': parseInt(user_id),
+                'audio_time': parseFloat(audio.currentTime),
+                'audio_paused': audio.paused,
                 'delete_room': false,
                 'change_admin': true
             }));
         }
+
+        function sync_audio(){
+            chatSocket.send(JSON.stringify({
+                'message': "",
+                'user_id': parseInt(user_id),
+                'audio_time': parseFloat(audio.currentTime),
+                'audio_paused': audio.paused,
+                'delete_room': false,
+                'change_admin': false
+            }));
+        }
+
+        setInterval(sync_audio, 500);
 
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
         console.log('ws://' +
@@ -93,11 +117,22 @@
 
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
+            if(data.is_admin && Math.abs(audio.currentTime - data.audio_time) > 1){
+                audio.currentTime = data.audio_time
+            }
+            if(data.is_admin && data.user_id != user_id){
+                if(data.audio_paused){
+                    audio.pause()
+                }
+                else{
+                    audio.play()
+                }
+            }
             if(data.deleted_room){
                 location.reload()
             }
             if (data.changed_admin && data.admin_username){
-                document.querySelector('#chat-text').value += ('***' + '\n' + data.admin_username + ' теперь админ комнаты' + '\n'+'***')
+                document.querySelector('#chat-text').value += ('***' + '\n' + data.admin_username + ' теперь админ комнаты' + '\n'+'***'+ '\n')
             }
             if (data.message != "" && data.username != "" && data.date)
             {
