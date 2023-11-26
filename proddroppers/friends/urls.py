@@ -14,12 +14,12 @@ app_name = "friends"
 
 urlpatterns = [
     path(
-        "list/<int:pk>/",
+        "users_friends/<int:pk>/",
         FriendsAPI.as_view(),
         name="list",
     ),
     path(
-        "waiting/<int:pk>/",
+        "users_waiting_friends/<int:pk>/",
         FriendsWaitingAPI.as_view(),
         name="waiting",
     ),

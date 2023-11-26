@@ -16,7 +16,7 @@ urlpatterns = [
         name="users",
     ),
     path(
-        "profile/<int:pk>/",
+        "users_info/<int:pk>/",
         DetailAPI.as_view(),
         name="profile",
     ),

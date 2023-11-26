@@ -3,6 +3,7 @@ import io
 
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
+from django.shortcuts import render
 from PIL import Image
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -46,7 +47,7 @@ class DetailAPI(APIView):
     def get(self, request, pk, *args, **kwargs):
         try:
             user = User.objects.get(pk=pk)
-        except User.DoesNotExist:
+        except (User.DoesNotExist, KeyError):
             return Response(error_response)
         return Response(UserProfileSerializer(user).data)
 
