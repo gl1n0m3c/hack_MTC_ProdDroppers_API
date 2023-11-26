@@ -1,9 +1,0 @@
-[
-{
-    "model": "users_music.artist",
-    "pk": 1,
-    "fields": {
-        "name": "singer1"
-    }
-}
-]

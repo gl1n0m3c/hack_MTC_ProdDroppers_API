@@ -1,7 +1,7 @@
 from django.urls import path
-from rooms import views as chat_views
+from rooms.views import RoomsAPI
 
 
 urlpatterns = [
-    path("<int:room_id>/", chat_views.chat_page, name="chat-page"),
+    path("", RoomsAPI.as_view(), name="rooms"),
 ]

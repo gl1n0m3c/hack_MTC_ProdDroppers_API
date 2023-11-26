@@ -1,9 +1,0 @@
-[
-{
-    "model": "users_music.category",
-    "pk": 1,
-    "fields": {
-        "name": "cat1"
-    }
-}
-]

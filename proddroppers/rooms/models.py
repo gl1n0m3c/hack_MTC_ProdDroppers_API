@@ -5,7 +5,18 @@ from core.models import AbstractNameModel
 from users_music.models import Music
 
 
+class RoomsManager(models.Manager):
+    def get_rooms(self):
+        return (
+            self.get_queryset()
+            .only(Rooms.name.field.name)
+            .order_by(Rooms.name.field.name)
+        )
+
+
 class Rooms(AbstractNameModel):
+    objects = RoomsManager()
+
     current = models.ForeignKey(
         Music,
         null=True,

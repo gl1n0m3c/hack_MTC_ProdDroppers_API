@@ -1,14 +1,11 @@
-from django.http import Http404
-from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from rooms.models import Rooms
+from rooms.serializers import RoomsSerializer
 
-from users_music.models import Music
 
-
-def chat_page(request, room_id):
-    try:
-        Rooms.objects.get(id=room_id)
-    except Rooms.DoesNotExist:
-        raise Http404
-    context = {"room_id": room_id, "music": Music.objects.get(id=1)}
-    return render(request, "chatPage.html", context)
+class RoomsAPI(APIView):
+    def get(self, request, *args, **kwargs):
+        rooms = Rooms.objects.get_rooms()
+        return Response(RoomsSerializer(rooms, many=True).data)

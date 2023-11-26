@@ -1,0 +1,144 @@
+[
+{
+    "model": "users_music.artist",
+    "pk": 1,
+    "fields": {
+        "name": "test_artist1"
+    }
+},
+{
+    "model": "users_music.artist",
+    "pk": 2,
+    "fields": {
+        "name": "test_artist2"
+    }
+},
+{
+    "model": "users_music.artist",
+    "pk": 3,
+    "fields": {
+        "name": "test_artist3"
+    }
+},
+{
+    "model": "users_music.albom",
+    "pk": 1,
+    "fields": {
+        "name": "test_albom1",
+        "artist": 1,
+        "image": "default/default_music_image.png"
+    }
+},
+{
+    "model": "users_music.albom",
+    "pk": 2,
+    "fields": {
+        "name": "test_albom2",
+        "artist": 1,
+        "image": "default/default_music_image.png"
+    }
+},
+{
+    "model": "users_music.albom",
+    "pk": 3,
+    "fields": {
+        "name": "test_albom3",
+        "artist": 2,
+        "image": "default/default_music_image.png"
+    }
+},
+{
+    "model": "users_music.albom",
+    "pk": 4,
+    "fields": {
+        "name": "test_albom4",
+        "artist": 3,
+        "image": "default/default_music_image.png"
+    }
+},
+{
+    "model": "users_music.category",
+    "pk": 1,
+    "fields": {
+        "name": "test_category1"
+    }
+},
+{
+    "model": "users_music.category",
+    "pk": 2,
+    "fields": {
+        "name": "test_category2"
+    }
+},
+{
+    "model": "users_music.category",
+    "pk": 3,
+    "fields": {
+        "name": "test_category3"
+    }
+},
+{
+    "model": "users_music.mood",
+    "pk": 1,
+    "fields": {
+        "name": "test_mood1"
+    }
+},
+{
+    "model": "users_music.mood",
+    "pk": 2,
+    "fields": {
+        "name": "test_mood2"
+    }
+},
+{
+    "model": "users_music.mood",
+    "pk": 3,
+    "fields": {
+        "name": "test_mood3"
+    }
+},
+{
+    "model": "users_music.music",
+    "pk": 1,
+    "fields": {
+        "name": "test_music1",
+        "category": 1,
+        "albom": 1,
+        "music_file": "music/NLE_Choppa_-_Camelot.mp3",
+        "mood": [
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "users_music.music",
+    "pk": 2,
+    "fields": {
+        "name": "test_music2",
+        "category": 2,
+        "albom": 3,
+        "music_file": "music/GONE.Fludd_-_Рапсодия_Конца_Света.mp3",
+        "mood": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "users_music.music",
+    "pk": 3,
+    "fields": {
+        "name": "test_music3",
+        "category": 3,
+        "albom": 4,
+        "music_file": "music/Aarne_LIL_KRYSTALLL_-_Молчать.mp3",
+        "mood": [
+            1,
+            2,
+            3
+        ]
+    }
+}
+]
