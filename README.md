@@ -18,7 +18,7 @@
 
 4 - Склонируйте проект с GitLab в данный репозиторий
 ```bash
-git clone https://github.com/gl1n0m3c/hack_MTC_ProdDroppers_UI.git
+git clone https://github.com/gl1n0m3c/hack_MTC_ProdDroppers_API.git
 ```
 
 
